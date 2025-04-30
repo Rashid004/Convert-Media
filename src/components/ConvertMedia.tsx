@@ -1,24 +1,30 @@
 /** @format */
 
 import React, { useEffect, useState } from "react";
-import { convertImage, ImageConversionOptions } from "../utils";
+import { createOptimizedImageUrl } from "../client";
 
 interface ConvertMediaProps {
   children: React.ReactElement;
   format?: "webp" | "png" | "jpg" | "avif";
   quality?: number;
+  width?: number;
+  height?: number;
+  apiUrl?: string;
 }
 
 export const ConvertMedia: React.FC<ConvertMediaProps> = ({
   children,
   format = "webp",
   quality = 80,
+  width,
+  height,
+  apiUrl = "/api/convert",
 }) => {
   const [convertedSrc, setConvertedSrc] = useState<string | null>(null);
 
   useEffect(() => {
     if (!React.isValidElement(children)) {
-      console.error("ConvertMedia expects an img or video as its child");
+      console.error("ConvertMedia expects an img as its child");
       return;
     }
 
@@ -28,21 +34,26 @@ export const ConvertMedia: React.FC<ConvertMediaProps> = ({
     if (child.type === "img" && typeof child.props.src === "string") {
       const originalSrc = child.props.src;
 
-      // For client-side, we'd use a service approach
-      // Here's a placeholder for how it might work
-      const apiEndpoint = `/api/convert-image?src=${encodeURIComponent(
-        originalSrc
-      )}&format=${format}&quality=${quality}`;
-      setConvertedSrc(apiEndpoint);
+      // Create optimized URL
+      const optimizedUrl = createOptimizedImageUrl({
+        src: originalSrc,
+        format,
+        quality,
+        width,
+        height,
+        apiUrl,
+      });
+
+      setConvertedSrc(optimizedUrl);
     }
-  }, [children, format, quality]);
+  }, [children, format, quality, width, height, apiUrl]);
 
   if (!React.isValidElement(children)) {
     return null;
   }
 
   // Clone the child element and replace its src if needed
-  if (convertedSrc) {
+  if (convertedSrc && children.type === "img") {
     return React.cloneElement(children as React.ReactElement, {
       src: convertedSrc,
     });
@@ -50,3 +61,5 @@ export const ConvertMedia: React.FC<ConvertMediaProps> = ({
 
   return children;
 };
+
+export default ConvertMedia;

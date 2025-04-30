@@ -1,4 +1,1 @@
-/** @format */
-
-export * from "./components";
-export * from "./utils";
+export const VERSION = "0.1.0";

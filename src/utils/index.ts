@@ -1,4 +1,4 @@
 /** @format */
 
-export * from "./imageConverter";
-export * from "./videoConverter";
+// Re-export image conversion utilities
+export * from "../server/imageConverter";

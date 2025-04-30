@@ -1,29 +1,46 @@
 {
   "name": "convert-media",
   "version": "0.1.0",
+  "description": "Simple media conversion wrapper for images",
   "main": "dist/index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "description": "Simple media conversion wrapper for images and videos",
   "type": "module",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "rollup -c rollup.config.cjs",
+    "dev": "rollup -c rollup.config.cjs -w",
+    "clean": "rimraf dist",
+    "prepare": "npm run clean && npm run build"
+  },
+  "keywords": [
+    "image",
+    "conversion",
+    "webp",
+    "optimization",
+    "react"
+  ],
+  "author": "Ansari Rashid",
+  "license": "MIT",
   "dependencies": {
-    "fs-extra": "^11.3.0",
-    "imagemin": "^9.0.1",
-    "react": "^19.1.0",
-    "react-dom": "^19.1.0",
-    "sharp": "^0.34.1"
+    "fs-extra": "^11.2.0",
+    "sharp": "^0.33.0"
   },
   "devDependencies": {
-    "@rollup/plugin-commonjs": "^28.0.3",
-    "@rollup/plugin-node-resolve": "^16.0.1",
-    "@rollup/plugin-typescript": "^12.1.2",
-    "@types/node": "^22.15.3",
-    "@types/react": "^19.1.2",
-    "rollup": "^4.40.1",
+    "@rollup/plugin-commonjs": "^25.0.0",
+    "@rollup/plugin-node-resolve": "^15.0.0",
+    "@rollup/plugin-typescript": "^11.1.6",
+    "@types/node": "^20.0.0",
+    "@types/react": "^18.0.0",
+    "@types/react-dom": "^18.0.0",
+    "rimraf": "^5.0.0",
+    "rollup": "^3.29.5",
+    "tslib": "^2.8.1",
     "typescript": "^5.8.3"
+  },
+  "peerDependencies": {
+    "react": ">=16.8.0",
+    "react-dom": ">=16.8.0"
   }
 }

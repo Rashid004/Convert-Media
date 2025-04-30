@@ -1,0 +1,26 @@
+<!-- @format -->
+
+<!-- public/index.html -->
+<!doctype html>
+<html>
+  <head>
+    <title>Image Conversion Test</title>
+  </head>
+  <body>
+    <h1>Image Conversion Test</h1>
+
+    <div>
+      <h2>Original Image</h2>
+      <img src="/images/test.jpg" alt="Original" width="400" />
+    </div>
+
+    <div>
+      <h2>Converted to WebP</h2>
+      <img
+        src="/api/convert?src=/images/test.jpg&format=webp"
+        alt="WebP version"
+        width="400"
+      />
+    </div>
+  </body>
+</html>
